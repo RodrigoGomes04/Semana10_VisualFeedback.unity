@@ -6,7 +6,9 @@ Semana 10 — VFX, Partículas, Materiais e Feedback Visual
 
 Game Engine: Unity 6.0
 
-Criação de Cenário: Blender
+Música: Eu, em FL Studio
+
+Cenário: Eu, em Blender
 
 Prefab do Player: First Person + Third Person | Character Controllers by Unity Technologies - Unity Asset Store
 
