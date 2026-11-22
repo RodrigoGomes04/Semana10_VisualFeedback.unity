@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ProximityFeedback : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class ProximityFeedback : MonoBehaviour
     [SerializeField] private ParticleSystem particulas;
     [SerializeField] private AudioClip Sound;
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Ambience")]
+    [SerializeField] private AudioClip ambienceSound;
+    [SerializeField] private AudioSource ambienceSource;
 
     [Header("Configuração da proximidade")]
     [SerializeField] private float distanciaAtivacao = 3f;
@@ -39,9 +44,11 @@ public class ProximityFeedback : MonoBehaviour
         }
 
         AtualizarEstadoVisual(false);
+
+        PlaySource();
     }
 
-    void Update()
+    public void Update()
     {
         if (jogador == null)
         {
@@ -62,7 +69,7 @@ public class ProximityFeedback : MonoBehaviour
         }
     }
 
-    void AtualizarEstadoVisual(bool proximo)
+    public void AtualizarEstadoVisual(bool proximo)
     {
         if (objetoRenderer != null)
         {
@@ -88,7 +95,19 @@ public class ProximityFeedback : MonoBehaviour
             }
         }
 
-            if (particulas != null)
+        if (Sound != null)
+        {
+            if (estavaProximo == true)
+            {
+                PlaySource();
+            }
+            else
+            {
+                KillSource();
+            }
+        }
+
+        if (particulas != null)
             {
                 if (proximo)
                 {
@@ -102,6 +121,14 @@ public class ProximityFeedback : MonoBehaviour
                     );
                 }
             }
-        }
-
     }
+    public void PlaySource()
+    {
+        ambienceSource.PlayOneShot(ambienceSound);
+    }
+
+    public void KillSource()
+    {
+        ambienceSource.Stop();
+    }
+}
